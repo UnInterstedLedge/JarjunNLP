@@ -27,3 +27,15 @@ python main.py
 ```
 
 The server will start on 'localhost' on port '5000'. You can access the application by navigating to 'http://127.0.0.1:5000/' in your web browser.
+
+## Directory Structure 
+Here is the required directory strure for the application:
+
+```markdown
+/JarjunNLP
+  /static
+    - my_name.wav
+    - other_responses.wav
+  - main.py
+  - README.md
+```
