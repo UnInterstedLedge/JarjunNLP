@@ -39,3 +39,16 @@ Here is the required directory strure for the application:
   - main.py
   - README.md
 ```
+
+## Adding more responses
+To add more audio responses, simply place your '.wav' files into the 'static' directory and update the 'responses' dictionary within 'main.py' file.
+
+Example :
+
+```python
+responses = {
+    "hi": "hi_response.wav",
+    "how are you?": "how_are_you_response.wav",
+    ...
+}
+```
