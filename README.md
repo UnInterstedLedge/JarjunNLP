@@ -18,3 +18,12 @@ You can install Flask using pip, Python's package installer:
 
 ```bash
 pip install flask
+
+## Running the Applicarion
+
+After installing Flask, you can start the application with the following command
+
+```bash
+python main.py
+
+The server will start on 'localhost' on port '5000'. You can access the application by navigating to 'http://127.0.0.1:5000/' in your web browser.
