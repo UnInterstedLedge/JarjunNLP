@@ -8,7 +8,7 @@ def play_audio_response(audio_file):
 def respond_to_text_input(user_input):
     # A dictionary mapping keywords or phrases to specific audio files
     responses = {
-      # Paths
+      # Paths for audio files
       '''
         "hi": "/home/austin/Documents/AIRobotics/Project/hi_how_are_you.wav",
         "hello": "/home/austin/Documents/AIRobotics/Project/hi_how_are_you.wav",
