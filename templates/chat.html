@@ -22,7 +22,8 @@
         <button type="submit">Talk</button>
     </form>
     <div class="speaker-image">
-        <img id="speaker-img" src="{{ url_for('static', filename=(selected_speaker or '') + '.jpg') }}" alt="Speaker Image" {{ 'style=display:block;' if selected_speaker else 'style=display:none;' }}>
+        <!-- Image tag only with alt attribute to prevent "None image" text -->
+        <img id="speaker-img" alt="" style="display:none;">
     </div>
     {% if response %}
         <p>Response: {{ response }}</p>
@@ -30,15 +31,53 @@
 </div>
 
 <script>
+// Define the paths to images as JavaScript variables
+var benShapiroImage = "{{ url_for('static', filename='images/benshapiro.jpg') }}";
+var joeBidenImage = "{{ url_for('static', filename='images/joe_biden.jpg') }}";
+var morganFreemanImage = "{{ url_for('static', filename='images/morgan_freeman.jpg') }}";
+var donaldTrumpImage = "{{ url_for('static', filename='images/donald_trump.jpg') }}";
+
 document.getElementById('speaker-selection').addEventListener('change', function() {
-    var speakerName = this.value;
     var speakerImg = document.getElementById('speaker-img');
-    if (speakerName) {
-        speakerImg.src = "{{ url_for('static', filename='') }}" + speakerName + '.jpg';
+    var speakerName = this.value;
+    var imagePath = {
+        'ben_shapiro': benShapiroImage,
+        'joe_biden': joeBidenImage,
+        'morgan_freeman': morganFreemanImage,
+        'donald_trump': donaldTrumpImage
+    };
+    // Check if speakerName has a valid selection and update the image source
+    if (imagePath[speakerName]) {
+        speakerImg.src = imagePath[speakerName];
         speakerImg.alt = speakerName.split('_').join(' ') + ' image';
         speakerImg.style.display = 'block';
     } else {
+        speakerImg.src = '';
+        speakerImg.alt = '';
         speakerImg.style.display = 'none';
+    }
+
+    // Clear the response text when changing the selection
+    var responseParagraph = document.querySelector('.chat-container p');
+    if (responseParagraph) {
+        responseParagraph.style.display = 'none';
+    }
+});
+
+// Ensure the image and response are reset when the page loads
+document.addEventListener('DOMContentLoaded', function() {
+    var selectedSpeaker = "{{ selected_speaker }}";
+    var speakerImg = document.getElementById('speaker-img');
+    // Check if there's a previously selected speaker and update the image source
+    if (selectedSpeaker && selectedSpeaker !== 'None') {
+        speakerImg.src = {
+            'ben_shapiro': benShapiroImage,
+            'joe_biden': joeBidenImage,
+            'morgan_freeman': morganFreemanImage,
+            'donald_trump': donaldTrumpImage
+        }[selectedSpeaker] || '';
+        speakerImg.alt = selectedSpeaker.split('_').join(' ') + ' image';
+        speakerImg.style.display = 'block';
     }
 });
 </script>
