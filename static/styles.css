@@ -40,3 +40,8 @@ html, body {
     background-color: #555;
   }
   
+  .speaker-image img {
+    width: 300px;  /* Adjust the width as needed */
+    height: auto;  /* This keeps the aspect ratio intact */
+    display: block; /* Ensures the image is shown when a source is set */
+}
