@@ -19,6 +19,9 @@
             <option value="donald_trump" {{ 'selected' if selected_speaker == 'donald_trump' else '' }}>Donald Trump</option>
         </select>
         <input type="text" name="user_input" placeholder="Say 'Hi' to start talking" autofocus>
+        <button id="mic-button" type="button">
+            <img src="{{ url_for('static', filename='images/microphone.png') }}" alt="Microphone" style="width: 24px; height: 24px;">
+        </button>
         <button type="submit">Talk</button>
     </form>
     <div class="speaker-image">
@@ -63,6 +66,30 @@ document.getElementById('speaker-selection').addEventListener('change', function
         responseParagraph.style.display = 'none';
     }
 });
+
+// JavaScript for the microphone input
+var recognition = new webkitSpeechRecognition();
+recognition.continuous = false;
+recognition.lang = 'en-US';
+recognition.interimResults = false;
+recognition.maxAlternatives = 1;
+
+document.getElementById('mic-button').onclick = function() {
+    recognition.start();
+};
+
+recognition.onresult = function(event) {
+    var speechResult = event.results[0][0].transcript;
+    document.getElementsByName('user_input')[0].value = speechResult;
+};
+
+recognition.onspeechend = function() {
+    recognition.stop();
+};
+
+recognition.onerror = function(event) {
+    console.error('Speech recognition error detected: ' + event.error);
+};
 
 // Ensure the image and response are reset when the page loads
 document.addEventListener('DOMContentLoaded', function() {
