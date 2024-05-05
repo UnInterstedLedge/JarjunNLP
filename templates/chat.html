@@ -19,17 +19,29 @@
             <option value="donald_trump" {{ 'selected' if selected_speaker == 'donald_trump' else '' }}>Donald Trump</option>
         </select>
         <input type="text" name="user_input" placeholder="Say 'Hi' to start talking" autofocus>
-        <button id="mic-button" type="button">
+        <button id="mic-button" type="button" style="display:none;">
             <img src="{{ url_for('static', filename='images/microphone.png') }}" alt="Microphone" style="width: 24px; height: 24px;">
         </button>
-        <button type="submit">Talk</button>
+        <button type="submit" id="talk-btn" style="display:none;">Talk</button>
     </form>
     <div class="speaker-image">
         <!-- Image tag only with alt attribute to prevent "None image" text -->
         <img id="speaker-img" alt="" style="display:none; width: 300px; height: auto;">
     </div>
-    {% if response %}
-        <p>Response: {{ response }}</p>
+
+    <!-- Check if text was found for user input -->
+    {% if response.text %}
+
+        <!-- Output corresponding text -->
+        <p>Response: {{ response.text }}</p>
+
+        <!-- Check if audio was found for user input -->
+        {% if response.audio %}
+            <audio controls autoplay>
+                <!-- Play corresponding audio file  -->
+                <source src="{{ response.audio }}" type="audio/mpeg">
+            </audio>
+        {% endif %}
     {% endif %}
 </div>
 
@@ -42,6 +54,8 @@ var donaldTrumpImage = "{{ url_for('static', filename='images/donald_trump.jpg')
 
 document.getElementById('speaker-selection').addEventListener('change', function() {
     var speakerImg = document.getElementById('speaker-img');
+    var talkBtn = document.getElementById('talk-btn');
+    const button = document.getElementById("mic-button");
     var speakerName = this.value;
     var imagePath = {
         'ben_shapiro': benShapiroImage,
@@ -54,6 +68,8 @@ document.getElementById('speaker-selection').addEventListener('change', function
         speakerImg.src = imagePath[speakerName];
         speakerImg.alt = speakerName.split('_').join(' ') + ' image';
         speakerImg.style.display = 'block';
+        talkBtn.style.display = 'inline-block';
+        button.style.display = 'inline-block';
     } else {
         speakerImg.src = '';
         speakerImg.alt = '';
@@ -73,28 +89,58 @@ recognition.continuous = false;
 recognition.lang = 'en-US';
 recognition.interimResults = false;
 recognition.maxAlternatives = 1;
+// Flag for tracking if recording
+var isRecording = false;
 
 document.getElementById('mic-button').onclick = function() {
-    recognition.start();
+    const button = document.getElementById("mic-button");
+
+    // Toggle recording flag
+    isRecording = !isRecording;
+    if (isRecording) {
+        // Set button to red, start recording
+        button.style.backgroundColor = "red";
+        recognition.start();
+    } else {
+        // Set button to default color, stop recording
+        button.style.backgroundColor = "#333";
+        recognition.stop();
+    }
 };
 
+// Extracts text from user's speech input
 recognition.onresult = function(event) {
     var speechResult = event.results[0][0].transcript;
     document.getElementsByName('user_input')[0].value = speechResult;
 };
 
+// Handles once speech has stopped
 recognition.onspeechend = function() {
+    // Toggle recording flag
+    isRecording = false;
+    // Set button to default color, stop recording
+    const button = document.getElementById("mic-button");
+    button.style.backgroundColor = "#333";
     recognition.stop();
 };
 
+// Handles errors
 recognition.onerror = function(event) {
     console.error('Speech recognition error detected: ' + event.error);
+    // Toggle recording flag
+    isRecording = false;
+    // Set button to default color
+    const button = document.getElementById("mic-button");
+    button.style.backgroundColor = "#333";
 };
+
 
 // Ensure the image and response are reset when the page loads
 document.addEventListener('DOMContentLoaded', function() {
     var selectedSpeaker = "{{ selected_speaker }}";
     var speakerImg = document.getElementById('speaker-img');
+    var talkBtn = document.getElementById('talk-btn');
+    const button = document.getElementById("mic-button");
     // Check if there's a previously selected speaker and update the image source
     if (selectedSpeaker && selectedSpeaker !== 'None') {
         speakerImg.src = {
@@ -105,6 +151,8 @@ document.addEventListener('DOMContentLoaded', function() {
         }[selectedSpeaker] || '';
         speakerImg.alt = selectedSpeaker.split('_').join(' ') + ' image';
         speakerImg.style.display = 'block';
+        talkBtn.style.display = 'inline-block';
+        button.style.display = 'inline-block';
     }
 });
 </script>

@@ -1,25 +1,39 @@
 from flask import Flask, request, render_template, url_for
+from speaker_outputs import response_ben_shapiro, response_joe_biden, response_morgan_freeman, response_donald_trump
 
 app = Flask(__name__)
 
-@app.route('/play/<filename>')
-def play_audio(filename):
-    # Serves audio files from the 'static' folder
-    return app.send_static_file(filename)
+# Set the path to the audio folder
+@app.route('/static/audio/<filename>')
+def serve_audio(filename):
+    # Serves audio files from the 'audio' folder
+    return app.send_static_file(f'audio/{filename}')
 
 def get_response(speaker, user_input):
-    # Simple responses based on the speaker
-    responses = {
-        'ben_shapiro': "Hello, this is Ben Shapiro. How can I help you?",
-        'joe_biden': "Greetings from Joe Biden. What would you like to discuss?",
-        'morgan_freeman': "Morgan Freeman here, it's a pleasure to meet you.",
-        'donald_trump': "It's Donald Trump. You're talking to the best, believe me."
+    # Dictionary of speakers and corresponding function
+    response_functions = {
+        'ben_shapiro': response_ben_shapiro,
+        'joe_biden': response_joe_biden,
+        'morgan_freeman': response_morgan_freeman,
+        'donald_trump': response_donald_trump
     }
-    return responses.get(speaker, "") if user_input.lower() == 'hi' else "Sorry, I didn't catch that."
+
+    # Get the function for corresponding speaker
+    response_function = response_functions.get(speaker)
+
+    # Check if a speaker was found
+    if response_functions.get(speaker):
+        # Convert input to lowercase
+        lowercase_user_input = user_input.lower()
+        # Return output text & audio
+        return response_function(lowercase_user_input)
+    else:
+        # Error if speaker was not found (should not occur)
+        return {"text": "Sorry, I didn't catch that.", "audio": None}
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
-    response = ''
+    response = {"text": "", "audio": None}
     selected_speaker = None
     if request.method == 'POST':
         speaker = request.form.get('speaker', '')
