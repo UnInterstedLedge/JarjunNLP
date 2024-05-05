@@ -28,8 +28,20 @@
         <!-- Image tag only with alt attribute to prevent "None image" text -->
         <img id="speaker-img" alt="" style="display:none; width: 300px; height: auto;">
     </div>
-    {% if response %}
-        <p>Response: {{ response }}</p>
+
+    <!-- Check if text was found for user input -->
+    {% if response.text %}
+
+        <!-- Output corresponding text -->
+        <p>Response: {{ response.text }}</p>
+
+        <!-- Check if audio was found for user input -->
+        {% if response.audio %}
+            <audio controls autoplay>
+                <!-- Play corresponding audio file  -->
+                <source src="{{ response.audio }}" type="audio/mpeg">
+            </audio>
+        {% endif %}
     {% endif %}
 </div>
 
@@ -84,7 +96,6 @@ document.getElementById('mic-button').onclick = function() {
 recognition.onresult = function(event) {
     var speechResult = event.results[0][0].transcript;
     document.getElementsByName('user_input')[0].value = speechResult;
-    button.style.backgroundColor = "black";
 };
 
 recognition.onspeechend = function() {
