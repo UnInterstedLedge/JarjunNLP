@@ -1,5 +1,5 @@
 from flask import Flask, request, render_template, url_for
-from speaker_outputs import response_ben_shapiro, response_joe_biden, response_morgan_freeman, response_donald_trump
+from speaker_outputs import response_ben_shapiro, response_dr_chen, response_morgan_freeman, response_sponge_bob
 
 app = Flask(__name__)
 
@@ -13,9 +13,9 @@ def get_response(speaker, user_input):
     # Dictionary of speakers and corresponding function
     response_functions = {
         'ben_shapiro': response_ben_shapiro,
-        'joe_biden': response_joe_biden,
+        'dr_chen': response_dr_chen,
         'morgan_freeman': response_morgan_freeman,
-        'donald_trump': response_donald_trump
+        'sponge_bob': response_sponge_bob
     }
 
     # Get the function for corresponding speaker
