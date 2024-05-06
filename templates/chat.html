@@ -14,9 +14,9 @@
         <select name="speaker" id="speaker-selection">
             <option value="">--Please choose an option--</option>
             <option value="ben_shapiro" {{ 'selected' if selected_speaker == 'ben_shapiro' else '' }}>Ben Shapiro</option>
-            <option value="joe_biden" {{ 'selected' if selected_speaker == 'joe_biden' else '' }}>Joe Biden</option>
+            <option value="dr_chen" {{ 'selected' if selected_speaker == 'dr_chen' else '' }}>Dr.Chen</option>
             <option value="morgan_freeman" {{ 'selected' if selected_speaker == 'morgan_freeman' else '' }}>Morgan Freeman</option>
-            <option value="donald_trump" {{ 'selected' if selected_speaker == 'donald_trump' else '' }}>Donald Trump</option>
+            <option value="sponge_bob" {{ 'selected' if selected_speaker == 'sponge_bob' else '' }}>Sponge-bob</option>
         </select>
         <input type="text" name="user_input" placeholder="Say 'Hi' to start talking" autofocus>
         <button id="mic-button" type="button" style="display:none;">
@@ -48,9 +48,9 @@
 <script>
 // Define the paths to images as JavaScript variables
 var benShapiroImage = "{{ url_for('static', filename='images/benshapiro.jpg') }}";
-var joeBidenImage = "{{ url_for('static', filename='images/joe_biden.jpg') }}";
+var drChenImage = "{{ url_for('static', filename='images/dr_chen.png') }}";
 var morganFreemanImage = "{{ url_for('static', filename='images/morgan_freeman.jpg') }}";
-var donaldTrumpImage = "{{ url_for('static', filename='images/donald_trump.jpg') }}";
+var spongeBobImage = "{{ url_for('static', filename='images/sponge_bob.png') }}";
 
 document.getElementById('speaker-selection').addEventListener('change', function() {
     var speakerImg = document.getElementById('speaker-img');
@@ -59,9 +59,9 @@ document.getElementById('speaker-selection').addEventListener('change', function
     var speakerName = this.value;
     var imagePath = {
         'ben_shapiro': benShapiroImage,
-        'joe_biden': joeBidenImage,
+        'dr_chen': drChenImage,
         'morgan_freeman': morganFreemanImage,
-        'donald_trump': donaldTrumpImage
+        'sponge_bob': spongeBobImage
     };
     // Check if speakerName has a valid selection and update the image source
     if (imagePath[speakerName]) {
@@ -145,9 +145,9 @@ document.addEventListener('DOMContentLoaded', function() {
     if (selectedSpeaker && selectedSpeaker !== 'None') {
         speakerImg.src = {
             'ben_shapiro': benShapiroImage,
-            'joe_biden': joeBidenImage,
+            'dr_chen': drChenImage,
             'morgan_freeman': morganFreemanImage,
-            'donald_trump': donaldTrumpImage
+            'sponge_bob': spongeBobImage
         }[selectedSpeaker] || '';
         speakerImg.alt = selectedSpeaker.split('_').join(' ') + ' image';
         speakerImg.style.display = 'block';
