@@ -8,9 +8,9 @@ def response_ben_shapiro(user_input):
         return {"text": "I didn't understand that.", "audio": None}
 
 # Joe Biden
-def response_joe_biden(user_input):
+def response_dr_chen(user_input):
     if user_input == 'hi' or user_input == 'hello':
-        return {"text": "Greetings from Joe Biden. What would you like to discuss?", "audio": url_for('serve_audio', filename="fileName.wav")}
+        return {"text": "Good day ladies and gentlemen, it's Dr.Chen", "audio": url_for('serve_audio', filename="fileName.wav")}
     else:
         return {"text": "I didn't understand that.", "audio": None}
 
@@ -22,8 +22,8 @@ def response_morgan_freeman(user_input):
         return {"text": "I didn't understand that.", "audio": None}
 
 # Donald Trump
-def response_donald_trump(user_input):
+def response_sponge_bob(user_input):
     if user_input == 'hi' or user_input == 'hello':
-        return {"text": "It's Donald Trump. You're talking to the best, believe me.", "audio": url_for('serve_audio', filename="fileName.wav")}
+        return {"text": "It's Sponge Bob. You're talking to the best patty flipper.", "audio": url_for('serve_audio', filename="fileName.wav")}
     else:
         return {"text": "I didn't understand that.", "audio": None}
