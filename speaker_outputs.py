@@ -8,13 +8,13 @@ def response_ben_shapiro(user_input):
     elif user_input == 'Give me some advice' or user_input == 'give me some advice':
         return {"text": "Well, let me tell you, my best life advice would be to never be afraid to speak your mind. Don't let anyone silence you or tell you what to think or how to act. Instead, be confident in who you are and what you believe in. You'll never go wrong with that.", "audio": url_for('serve_audio', filename = "BAdvice.mp3")}
     
-    elif user_input == 'How do you feel about liberals' or 'how do you feel about liberals':
+    elif user_input == 'How do you feel about liberals' or user_input == 'how do you feel about liberals':
         return {"text": "Oh, you bet I have to comment on liberals. As you might expect, I am not one of them, ha! ha!", "audio": url_for('serve_audio', filename = "BLibs.mp3")}
     
-    elif user_input == 'How are you' or 'how are you':
+    elif user_input == 'How are you' or user_input == 'how are you':
         return {"text": "I am doing quite well, thank you for asking! It's always nice to get some positive attention.", "audio": url_for('serve_audio', filename = "BHowYou.mp3")}
     
-    elif user_input == 'Who are you' or 'who are you':
+    elif user_input == 'Who are you' or user_input == 'who are you':
         return {"text": "I am Ben Shapiro, a conservative thinker and pundit. I fight to ensure that conservative values and ideas are always given a fair hearing in the mainstream media, but beyond all that, I am a husband, father, and proud American, and it is my pleasure to meet you.", "audio": url_for('serve_audio', filename = "BGreeting.mp3")}
 
     else:
@@ -25,7 +25,7 @@ def response_dr_chen(user_input):
     if user_input == 'hi' or user_input == 'hello':
         return {"text": "Hello, good to see you!", "audio": url_for('serve_audio', filename="CHello.mp3")}
     
-    elif user_input == "How are you?" or "how are you?":
+    elif user_input == "How are you?" or user_input == "how are you?":
          return {"text": "I'm doing alright, thanks for asking.", "audio": url_for('serve_audio', filename="CHowYou.mp3")}
 
     elif user_input == "Who are your favorite students?" or user_input == "who are your favorite students?":
