@@ -51,6 +51,7 @@ var benShapiroImage = "{{ url_for('static', filename='images/benshapiro.jpg') }}
 var drChenImage = "{{ url_for('static', filename='images/dr_chen.png') }}";
 var morganFreemanImage = "{{ url_for('static', filename='images/morgan_freeman.jpg') }}";
 var spongeBobImage = "{{ url_for('static', filename='images/sponge_bob.png') }}";
+var darthVaderImage = "{{ url_for('static', filename='images/darth_vader.jpg') }}";
 
 document.getElementById('speaker-selection').addEventListener('change', function() {
     var speakerImg = document.getElementById('speaker-img');
@@ -61,7 +62,8 @@ document.getElementById('speaker-selection').addEventListener('change', function
         'ben_shapiro': benShapiroImage,
         'dr_chen': drChenImage,
         'morgan_freeman': morganFreemanImage,
-        'sponge_bob': spongeBobImage
+        'sponge_bob': spongeBobImage,
+        'darth_vader': darthVaderImage
     };
     // Check if speakerName has a valid selection and update the image source
     if (imagePath[speakerName]) {
@@ -147,7 +149,8 @@ document.addEventListener('DOMContentLoaded', function() {
             'ben_shapiro': benShapiroImage,
             'dr_chen': drChenImage,
             'morgan_freeman': morganFreemanImage,
-            'sponge_bob': spongeBobImage
+            'sponge_bob': spongeBobImage,
+            'darth_vader': darthVaderImage
         }[selectedSpeaker] || '';
         speakerImg.alt = selectedSpeaker.split('_').join(' ') + ' image';
         speakerImg.style.display = 'block';
