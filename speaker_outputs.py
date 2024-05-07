@@ -70,3 +70,20 @@ def response_sponge_bob(user_input):
     
     else:
         return {"text": "I didn't understand that.", "audio": None}
+
+# Darth Vader
+def response_darth_vader(user_input):
+    if user_input == 'hi' or user_input == 'hello':
+        return {"text": "What is it that you wan? Do not speak to me so casually!!.", "audio": url_for('serve_audio', filename="VHello.wav")}
+    
+    elif user_input == "How are you?" or user_input == "how are you?":
+        return {"text": "I am as I muust be, your concern is unnessary! ", "audio": url_for('serve_audio', filename="VHowYou.wav")}    
+
+    elif user_input == "Who are you?" or user_input == "who are you?":
+        return {"text": "I am Darth Vader, lord of the Sith.You will find that your defense is no match for the powert of the dark side", "audio": url_for('serve_audio', filename="VGreeting.wav")}
+    
+    elif user_input == "You're not my father or user_input" == "You're not my father or user_input":
+        return {"text": "Search your feelings, you know it to be true. I am your father!!", "audio": url_for('serve_audio', filename="VQuote.wav")}
+    
+    else:
+        return {"text": "I didn't understand that.", "audio": None}
